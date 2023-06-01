@@ -11,7 +11,7 @@ config.read("config.ini")
 host = config.get("Connect", "host")
 port = config.getint("Connect", "port")
 
-n = 4001
+n = 8001
 c = 4
 client_count = c
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
