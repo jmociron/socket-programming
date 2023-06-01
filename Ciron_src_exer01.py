@@ -81,9 +81,10 @@ def aw_inter(x, y, matrix):
             x, y = points[label.upper()]
             numerator += area[label] * matrix[x][y]
         except:
+            pass
             # print(int_point, points)
             # print(f"X: {x}, Y: {y}, Rows: {len(matrix)}, Cols: {len(matrix[0])}")
-            print("\nError in interpolation!")
+            # print("\nError in interpolation!")
 
     # Computes for the elevation of the given point
     elevation = (numerator/sum(area.values()))

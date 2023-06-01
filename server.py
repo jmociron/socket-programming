@@ -10,11 +10,11 @@ config.read("config.ini")
 host = config.get("Connect", "host")
 port = config.getint("Connect", "port")
 
-n = 21
-client_count = 2
+n = 1000
+c = 3
+client_count = c
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
 row_start = 0
-
 
 try:      
   s.bind((host, port)) # binds server socket to port
@@ -27,8 +27,11 @@ s.listen()
 while client_count != 0:
 
   if(client_count > 1):
-    serialized_data = pickle.dumps(matrix[row_start:row_start+11])
-    row_start += 10 # Ensures that row with values is included in the next submatrix
+    # serialized_data = pickle.dumps(matrix[row_start:row_start+11])
+    # row_start += 10 # Ensures that row with values is included in the next submatrix
+    increment = round(int(n/c), -1)
+    serialized_data = pickle.dumps(matrix[row_start:row_start+increment+1])
+    row_start += increment # Ensures that row with values is included in the next submatrix
   else:
     serialized_data = pickle.dumps(matrix[row_start:n])
 
