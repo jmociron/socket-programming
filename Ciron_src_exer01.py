@@ -92,7 +92,7 @@ def terrain_inter(matrix):
             if matrix[i][j] == 0:
                 matrix[i][j] = round(aw_inter(i, j, matrix), 2)
     
-    print_matrix(matrix)
+    # print_matrix(matrix)
 
 if __name__ == "__main__":
 

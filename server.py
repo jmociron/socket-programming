@@ -2,7 +2,7 @@ import time
 import socket
 import pickle
 import configparser
-from Ciron_src_exer01 import assign_values
+from Ciron_src_exer01 import assign_values, print_matrix
  
 s = socket.socket()
 config = configparser.ConfigParser()
@@ -15,6 +15,7 @@ n = 1001
 c = 2
 client_count = c
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
+# print_matrix(matrix)
 row_start = 0
 
 try:      
