@@ -1,3 +1,4 @@
+import time
 import socket
 import pickle
 import configparser
@@ -10,8 +11,8 @@ config.read("config.ini")
 host = config.get("Connect", "host")
 port = config.getint("Connect", "port")
 
-n = 11
-c = 1
+n = 1001
+c = 2
 client_count = c
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
 row_start = 0
@@ -23,15 +24,15 @@ except socket.error as e:
 
 print(f"Server is listening on the port {port}...")
 s.listen()
- 
+
+start = time.time()
+
 while client_count != 0:
 
   if(client_count > 1):
-    # serialized_data = pickle.dumps(matrix[row_start:row_start+11])
-    # row_start += 10 # Ensures that row with values is included in the next submatrix
     increment = round(int(n/c), -1)
     serialized_data = pickle.dumps(matrix[row_start:row_start+increment+1])
-    row_start += increment # Ensures that row with values is included in the next submatrix
+    row_start += increment # ensures that row (divisible by 10) with values is included in the next submatrix
   else:
     serialized_data = pickle.dumps(matrix[row_start:n])
 
@@ -45,4 +46,6 @@ while client_count != 0:
   print(client.recv(4096).decode())
 
 print("\nMatrix has been distributed. Server will now close.")
+end = time.time()
+print("Time elapsed:", (end-start))
 s.close()

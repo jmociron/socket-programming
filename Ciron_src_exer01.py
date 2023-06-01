@@ -33,9 +33,6 @@ def round_number(n):
 # Retrieving the indices containing values surrounding the given point (x,y)
 def get_surrounding(x,y):
 
-    # cols = round_number(x)
-    # rows = round_number(y)
-
     rows = round_number(x)
     cols = round_number(y)
 
@@ -45,13 +42,6 @@ def get_surrounding(x,y):
         "C": [rows[1], cols[0]], 
         "D": [rows[1], cols[1]], 
     }
-
-    # surrounding_points = {
-    #     "A": [rows[0], cols[0]], 
-    #     "B": [rows[0], cols[1]], 
-    #     "C": [rows[1], cols[0]], 
-    #     "D": [rows[1], cols[1]], 
-    # }
 
     return surrounding_points
 
@@ -81,7 +71,6 @@ def aw_inter(x, y, matrix):
             x, y = points[label.upper()]
             numerator += area[label] * matrix[x][y]
         except:
-            pass
             # print(int_point, points)
             # print(f"X: {x}, Y: {y}, Rows: {len(matrix)}, Cols: {len(matrix[0])}")
             print("\nError in interpolation!")
@@ -93,10 +82,8 @@ def aw_inter(x, y, matrix):
     
 def terrain_inter(matrix):
 
-    # n = len(matrix)
     row = len(matrix)
     col = len(matrix[0])
-    start = time.time()
 
     print(f"Rows: {row}, Columns: {col}")
 
@@ -105,9 +92,7 @@ def terrain_inter(matrix):
             if matrix[i][j] == 0:
                 matrix[i][j] = round(aw_inter(i, j, matrix), 2)
     
-    end = time.time()
     print_matrix(matrix)
-    print("\nTime elapsed:", (end-start))
 
 if __name__ == "__main__":
 
