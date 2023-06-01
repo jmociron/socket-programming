@@ -10,8 +10,8 @@ config.read("config.ini")
 host = config.get("Connect", "host")
 port = config.getint("Connect", "port")
 
-n = 1000
-c = 3
+n = 11
+c = 1
 client_count = c
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
 row_start = 0
@@ -37,7 +37,10 @@ while client_count != 0:
 
   client, address = s.accept() # connection with client is established
   print ("\nGot connection from", address)
-  client.send(serialized_data)
+  
+  client.sendall(len(serialized_data).to_bytes(4, "big"))
+  client.sendall(serialized_data)
+
   client_count -= 1
   print(client.recv(4096).decode())
 

@@ -15,15 +15,25 @@ try:
 except socket.error as e:
     print(str(e))
 
-serialized_data = bytearray()
+# serialized_data = bytearray()
+data = bytearray()
+data_size = int.from_bytes(s.recv(4), "big")
 
-while True:
-    data_chunk = s.recv(4096) # receive data
-    serialized_data.extend(data_chunk)
-    if (len(data_chunk) < 4096): # check if end of matrix is reached
-        break
+while len(data) < data_size:
+    packet = s.recv(4096)
+    data.extend(packet)
+# while True:
+#     data_chunk = s.recv(4096) # receive data
+#     serialized_data.extend(data_chunk)
+#     if (len(data_chunk) < data_size): # check if end of matrix is reached
+#         break
+# while True:
+#     data_chunk = s.recv(4096) # receive data
+#     serialized_data.extend(data_chunk)
+#     if (len(data_chunk) < data_size): # check if end of matrix is reached
+#         break
 try:
-    data = pickle.loads(serialized_data) # deserializing data
+    data = pickle.loads(data) # deserializing data
 except pickle.UnpicklingError as e:
     print(f"Error occurred while unpickling: {e}")
 
