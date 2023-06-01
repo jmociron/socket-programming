@@ -1,7 +1,7 @@
 import socket
 import pickle
 import configparser
-from Ciron_src_exer01 import print_matrix
+from Ciron_src_exer01 import print_matrix, terrain_inter
 
 s = socket.socket()
 config = configparser.ConfigParser()
@@ -27,7 +27,7 @@ try:
 except pickle.UnpicklingError as e:
     print(f"Error occurred while unpickling: {e}")
 
-# print_matrix(data)
+terrain_inter(data)
 s.send("[ACK] Client has received submatrix".encode()) # sends submatrix to client
 print("Submatrix received. Client will now close.")
 s.close()

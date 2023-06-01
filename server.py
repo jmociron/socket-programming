@@ -10,8 +10,8 @@ config.read("config.ini")
 host = config.get("Connect", "host")
 port = config.getint("Connect", "port")
 
-n = 8001
-client_count = 1
+n = 21
+client_count = 2
 matrix = assign_values([[0 for x in range(n)] for y in range(n)])
 row_start = 0
 
@@ -25,8 +25,13 @@ print(f"Server is listening on the port {port}...")
 s.listen()
  
 while client_count != 0:
-  serialized_data = pickle.dumps(matrix[row_start:row_start+int(n/client_count)])
-  row_start += int(n/client_count)
+
+  if(client_count > 1):
+    serialized_data = pickle.dumps(matrix[row_start:row_start+11])
+    row_start += 10 # Ensures that row with values is included in the next submatrix
+  else:
+    serialized_data = pickle.dumps(matrix[row_start:n])
+
   client, address = s.accept() # connection with client is established
   print ("\nGot connection from", address)
   client.send(serialized_data)
